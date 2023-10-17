@@ -1,12 +1,20 @@
 <script>
-import MovieContainer from './partials/MovieContainer.vue';
-import TvContainer from './partials/TvContainer.vue';
+import card from './partials/card.vue';
+import { store } from '../data/store'
 
 export default {
   name: 'Main',
+  props: {
+    title: String,
+    type: String
+  },
   components: {
-    MovieContainer,
-    TvContainer
+    card
+  },
+  data() {
+    return {
+      store
+    }
   }
 }
 </script>
@@ -17,8 +25,14 @@ export default {
 <main>
 
   <div class="container">
-    <MovieContainer />
-    <!-- <TvContainer /> -->
+    <h2>{{ title }}</h2>
+    <div class="row">
+      <card
+        v-for="film in store[type]"
+        :key="film.id" 
+        :film="film"
+      />
+    </div>
   </div>
 
 </main>
@@ -28,10 +42,5 @@ export default {
 
 <style lang="scss">
 
-main {
-  // height: 90vh;
-  background-color: #313131;
-  color: #bdbdbd;
-}
 
 </style>
