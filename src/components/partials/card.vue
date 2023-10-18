@@ -50,6 +50,9 @@ export default {
         <p>Voto: {{ film.vote_average }}</p>
 
         <Stars :vote="film.vote_average" />
+
+        <p>{{ film.overview }}</p>
+
       </div>
 
     </div>
@@ -87,6 +90,7 @@ export default {
   opacity: 0;
   transform: translateY(30px);
   transition: 0.5s;
+  overflow: auto;
   .flag img{
   width: 25px;
   position: relative;
