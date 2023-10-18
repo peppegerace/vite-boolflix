@@ -1,9 +1,13 @@
 <script>
 import { store } from '../../data/store';
+import Stars from './Stars.vue';
 
 
 export default {
   name: 'card',
+  components: {
+    Stars
+  },
   props: {
     film: Object
   },
@@ -45,6 +49,7 @@ export default {
 
         <p>Voto: {{ film.vote_average }}</p>
 
+        <Stars :vote="film.vote_average" />
       </div>
 
     </div>
