@@ -1,5 +1,6 @@
 <script>
-import { store } from '../../data/store'
+import { store } from '../../data/store';
+
 
 export default {
   name: 'card',
@@ -8,7 +9,13 @@ export default {
   },
   data() {
     return {
-      store
+      store,
+      flags: ['en','it']
+    }
+  },
+  methods: {
+    getImagePath(img){
+      return new URL(`../../../public/img/${img}.png`, import.meta.url).href
     }
   }
 }
@@ -23,14 +30,21 @@ export default {
       
       <!-- <img :src="`https://image.tmdb.org/t/p/w342/${film.poster_path}`" :alt="film.title || film.name"> -->
       <img
-        :src="film.poster_path ? `https://image.tmdb.org/t/p/w342/${film.poster_path}` : '/public/img/image_not_found.png'"
+        :src="film.poster_path ? `https://image.tmdb.org/t/p/w342/${film.poster_path}` : '/img/image_not_found.png'"
         :alt="film.title || film.name"
       />
       <div class="info">
-        <h2>{{ film.title || film.name}}</h2>
-        <h3>{{ film.original_title || film.original_name}}</h3>
-        <p>Lingua: {{ film.original_language }}</p>
+
+        <h4 class="fw-bold">{{ film.title || film.name}}</h4>
+        <h5 class="fw-bold">{{ film.original_title || film.original_name}}</h5>
+
+        <div class="flag">
+          <img v-if="flags.includes(film.original_language)" :src="getImagePath(film.original_language)" alt="">
+          <p v-else >Lingua: {{ film.original_language }}</p>
+        </div>
+
         <p>Voto: {{ film.vote_average }}</p>
+
       </div>
 
     </div>
@@ -49,7 +63,7 @@ export default {
   padding: 1.2rem;
   position: relative;
   display: flex;
-  // transition: 0.4s ease-out;
+  cursor: pointer;
   box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
 
   img {
@@ -68,6 +82,10 @@ export default {
   opacity: 0;
   transform: translateY(30px);
   transition: 0.5s;
+  .flag img{
+  width: 25px;
+  position: relative;
+  }
 }
 }
 
@@ -86,16 +104,15 @@ export default {
   display: block;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 2;
   transition: 0.5s;
   opacity: 0;
 }
 
 .poster_card:hover img {
-  scale: 0.98;
-  transition: 0.5s;
+  scale: 0.97;
+  transition: 1s;
 }
-
 
 </style>
